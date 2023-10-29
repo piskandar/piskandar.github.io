@@ -6,10 +6,18 @@
 </script>
 <header class="site-header" role="banner">
 
-  <div class="wrapper site-header-wrapper" style="display: flex; justify-content: space-between; align-items: center">
+  <div class="wrapper site-header-wrapper"
+       style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0px">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <a rel="author" href="{{ "/" | relative_url }}">
+        <div style="border-radius: 50%; overflow: hidden">
+          <img src="/images/peter-200.png" style="width: 50px; height: 50px" alt="Image of Peter Iskandar"/>
+        </div>
+      </a>
+      <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    </div>
     {% comment %}<button id="theme-toggle" onclick="modeSwitcher()"></button>{% endcomment %}
 
       <div id="toggle"
@@ -39,14 +47,20 @@
   const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
 
   function setToggle(t) {
-
+    let toggle = document.getElementById("toggle");
+    let toggleTrackCheckX = document.getElementById("toggleTrackCheckX");
     if (t === "dark") {
-      document.getElementById("toggle").classList.add("toggleChecked");
-      document.getElementById("toggleTrackCheckX").classList.remove("toggleTrackCheckXUncheckedX");
+      toggle.classList.add("toggleChecked");
+      toggleTrackCheckX.classList.remove("toggleTrackCheckXUncheckedX");
     } else {
-      document.getElementById("toggle").classList.remove("toggleChecked");
-      document.getElementById("toggleTrackCheckX").classList.add("toggleTrackCheckXUncheckedX");
+      toggle.classList.remove("toggleChecked");
+      toggleTrackCheckX.classList.add("toggleTrackCheckXUncheckedX");
     }
+  }
+
+  function setLocalTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    window.localStorage.setItem('theme', t);
   }
 
   if (theme === "dark") {
@@ -54,39 +68,27 @@
   } else if (theme === "light") {
     setToggle("light")
   } else if  (userPrefers === "dark") {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    window.localStorage.setItem('theme', 'dark');
+    setLocalTheme("dark")
     setToggle("dark")
   } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-    window.localStorage.setItem('theme', 'light');
+    setLocalTheme("light")
     setToggle("light")
   }
 
   function modeSwitcher() {
     let currentMode = document.documentElement.getAttribute('data-theme');
-    let newMode = currentMode
     if (currentMode === "dark") {
-      document.documentElement.setAttribute('data-theme', 'light');
-      window.localStorage.setItem('theme', 'light');
-      newMode = "light"
+      setLocalTheme("light")
     } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      window.localStorage.setItem('theme', 'dark');
-      newMode = "dark"
+      setLocalTheme("dark")
     }
-    return newMode
   }
 
   function toggle() {
-    let newMode = modeSwitcher()
-    if (newMode === 'light') {
-      document.getElementById("toggle").classList.toggle("toggleChecked");
-      document.getElementById("toggleTrackCheckX").classList.toggle("toggleTrackCheckXUncheckedX");
-    }else {
-      document.getElementById("toggle").classList.toggle("toggleChecked");
-      document.getElementById("toggleTrackCheckX").classList.toggle("toggleTrackCheckXUncheckedX");
-    }
+    modeSwitcher()
+    document.getElementById("toggle").classList.toggle("toggleChecked");
+    document.getElementById("toggleTrackCheckX").classList.toggle("toggleTrackCheckXUncheckedX");
+
   }
 </script>
 
