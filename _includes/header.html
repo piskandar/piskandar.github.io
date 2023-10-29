@@ -36,8 +36,7 @@
         <div class="toggleThumb"></div>
         <input type="checkbox"
                id="toggleInput"
-               class="toggleInput"
-               readOnly/>
+               class="toggleInput"/>
       </div>
   </div>
 
@@ -49,12 +48,15 @@
   function setToggle(t) {
     let toggle = document.getElementById("toggle");
     let toggleTrackCheckX = document.getElementById("toggleTrackCheckX");
+    let toggleInput = document.getElementById("toggleInput");
     if (t === "dark") {
       toggle.classList.add("toggleChecked");
       toggleTrackCheckX.classList.remove("toggleTrackCheckXUncheckedX");
+      toggleInput.checked = true;
     } else {
       toggle.classList.remove("toggleChecked");
       toggleTrackCheckX.classList.add("toggleTrackCheckXUncheckedX");
+      toggleInput.checked = false;
     }
   }
 
@@ -88,6 +90,8 @@
     modeSwitcher()
     document.getElementById("toggle").classList.toggle("toggleChecked");
     document.getElementById("toggleTrackCheckX").classList.toggle("toggleTrackCheckXUncheckedX");
+    let toggleInput = document.getElementById("toggleInput");
+    toggleInput.checked = !toggleInput.checked;
 
   }
 </script>
