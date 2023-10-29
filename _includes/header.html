@@ -1,5 +1,5 @@
 <script>
-  const theme = localStorage.getItem('theme');
+  const theme = localStorage.getItem('theme-ui-color-mode');
   if (theme === "dark") {
     document.documentElement.setAttribute('data-theme', 'dark');
   }
@@ -62,7 +62,7 @@
 
   function setLocalTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
-    window.localStorage.setItem('theme', t);
+    window.localStorage.setItem('theme-ui-color-mode', t);
   }
 
   if (theme === "dark") {
