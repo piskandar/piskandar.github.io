@@ -95,3 +95,202 @@ html[data-theme="dark"] {
     --accent-color-dark: #{darken(#55c3d9, 15%)};
   }
 }
+
+.toggle {
+  cursor: pointer;
+  position: relative;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  user-select: none;
+  width: 50px;
+  height: 26px;
+
+  .toggleThumb {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #9AD4DF;
+    box-sizing: border-box;
+    transition: all .5s cubic-bezier(.23, 1, .32, 1) 0ms;
+    transform: translateX(0);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(23,25,25,0.2);
+    box-shadow: 0px 0px 8px 0px rgba(23,25,25,0.2);
+
+  }
+
+  .toggleTrack {
+    width: 50px;
+    background-color: #171919;
+    height: 22px;
+    padding: 0;
+    border-radius: 30px;
+    transition: all .2s ease;
+
+    .toggleTrackCheck {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 25px;
+      top: 0px;
+      bottom: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+      line-height: 0;
+      opacity: 0;
+      //transition: opacity 0.25s ease;
+
+      img {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        height: 16px;
+        width: 16px;
+        aspect-ratio: auto 16/16;
+        overflow: clip;
+        overflow-clip-margin: content-box;
+      }
+    }
+
+    .toggleTrackCheckXUncheckedX {
+      right: 5px;
+
+      animation-duration: 1s;
+      animation-name: sun-easeOutBounce;
+      transition: opacity 0.5s ease;
+      opacity: 1;
+    }
+
+    .toggleTrackCheckX {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      right: 5px;
+      top: 0px;
+      bottom: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+      line-height: 0;
+
+      img {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        height: 16px;
+        width: 16px;
+        aspect-ratio: auto 16/16;
+        overflow: clip;
+        overflow-clip-margin: content-box;
+      }
+    }
+  }
+
+  .toggleInput {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+}
+
+.toggleChecked {
+  .toggleThumb {
+    transform: translateX(26px);
+  }
+
+  .toggleTrack {
+    background-color: #E5E5E5;
+
+    .toggleTrackCheck {
+      opacity: 1;
+      left: 5px;
+      animation-name: moon-easeOutBounce;
+      animation-duration: 1s;
+    }
+
+    .toggleTrackCheckX {
+      opacity: 0;
+
+    }
+  }
+
+
+}
+
+@keyframes moon-easeOutBounce {
+  0% {
+    left: 25px;
+    opacity: 0
+  }
+  12% {
+    left: 27.2775px;
+  }
+  24% {
+    left: 19.11px;
+  }
+  36% {
+    left: 5.4975px;
+  }
+  54% {
+    left: 11.245px;
+  }
+  74% {
+    left: 5.4075px;
+    opacity: 1;
+  }
+  82% {
+    left: 6.5625px;
+  }
+  92% {
+    left: 5.165px;
+  }
+  96% {
+    left: 5.385px;
+  }
+  100% {
+    left: 5px;
+    opacity: 1;
+  }
+}
+
+@keyframes sun-easeOutBounce {
+  0% {
+    right: 25px;
+    opacity: 0
+  }
+  12% {
+    right: 27.2775px;
+  }
+  24% {
+    right: 19.11px;
+  }
+  36% {
+    right: 5.4975px;
+  }
+  54% {
+    right: 11.245px;
+  }
+  74% {
+    right: 5.4075px;
+    opacity: 1;
+  }
+  82% {
+    right: 6.5625px;
+  }
+  92% {
+    right: 5.165px;
+  }
+  96% {
+    right: 5.385px;
+  }
+  100% {
+    right: 5px;
+  }
+}

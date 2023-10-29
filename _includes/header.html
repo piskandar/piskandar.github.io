@@ -6,11 +6,31 @@
 </script>
 <header class="site-header" role="banner">
 
-  <div class="wrapper site-header-wrapper" style="display: flex; justify-content: space-between">
+  <div class="wrapper site-header-wrapper" style="display: flex; justify-content: space-between; align-items: center">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
-    <button id="theme-toggle" onclick="modeSwitcher()"></button>
+    {% comment %}<button id="theme-toggle" onclick="modeSwitcher()"></button>{% endcomment %}
+
+      <div id="toggle"
+           class="toggle"
+           onclick="toggle()">
+        <div style="padding-top: 2px">
+          <div class="toggleTrack">
+            <div class="toggleTrackCheck">
+              <img src="/images/moon.svg" alt="moon"/>
+            </div>
+            <div id="toggleTrackCheckX" class="toggleTrackCheckX toggleTrackCheckXUncheckedX">
+              <img src="/images/sun.svg" alt="sun"/>
+            </div>
+          </div>
+        </div>
+        <div class="toggleThumb"></div>
+        <input type="checkbox"
+               id="toggleInput"
+               class="toggleInput"
+               readOnly/>
+      </div>
   </div>
 
 </header>
@@ -19,29 +39,45 @@
   const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
 
   if (theme === "dark") {
-    document.getElementById("theme-toggle").innerHTML = "Light Mode";
+    // document.getElementById("theme-toggle").innerHTML = "Light Mode";
   } else if (theme === "light") {
-    document.getElementById("theme-toggle").innerHTML = "Dark Mode";
+    // document.getElementById("theme-toggle").innerHTML = "Dark Mode";
   } else if  (userPrefers === "dark") {
     document.documentElement.setAttribute('data-theme', 'dark');
     window.localStorage.setItem('theme', 'dark');
-    document.getElementById("theme-toggle").innerHTML = "Light Mode";
+    // document.getElementById("theme-toggle").innerHTML = "Light Mode";
   } else {
     document.documentElement.setAttribute('data-theme', 'light');
     window.localStorage.setItem('theme', 'light');
-    document.getElementById("theme-toggle").innerHTML = "Dark Mode";
+    // document.getElementById("theme-toggle").innerHTML = "Dark Mode";
   }
 
   function modeSwitcher() {
     let currentMode = document.documentElement.getAttribute('data-theme');
+    let newMode = currentMode
     if (currentMode === "dark") {
       document.documentElement.setAttribute('data-theme', 'light');
       window.localStorage.setItem('theme', 'light');
-      document.getElementById("theme-toggle").innerHTML = "Dark Mode";
+      // document.getElementById("theme-toggle").innerHTML = "Dark Mode";
+      newMode = "light"
     } else {
       document.documentElement.setAttribute('data-theme', 'dark');
       window.localStorage.setItem('theme', 'dark');
-      document.getElementById("theme-toggle").innerHTML = "Light Mode";
+      // document.getElementById("theme-toggle").innerHTML = "Light Mode";
+      newMode = "dark"
+    }
+    return newMode
+  }
+
+  function toggle() {
+    let newMode = modeSwitcher()
+    if (newMode === 'light') {
+
+    document.getElementById("toggle").classList.toggle("toggleChecked");
+    document.getElementById("toggleTrackCheckX").classList.toggle("toggleTrackCheckXUncheckedX");
+    }else {
+      document.getElementById("toggle").classList.toggle("toggleChecked");
+      document.getElementById("toggleTrackCheckX").classList.toggle("toggleTrackCheckXUncheckedX");
     }
   }
 </script>
